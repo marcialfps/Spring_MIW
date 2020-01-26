@@ -12,8 +12,7 @@ public class UserManager implements UserManagerService {
 	@Override
 	public User getUser(String username) throws Exception {
 		logger.debug("Asking for user");
-		userDataService.getUser(username);
-		return null;
+		return userDataService.getUser(username);
 	}
 
 	@Override

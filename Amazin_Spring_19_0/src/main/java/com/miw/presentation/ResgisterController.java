@@ -33,17 +33,18 @@ public class ResgisterController {
 	public String saveUser(@Valid @ModelAttribute UserData userData, BindingResult result) {
 		RegisterValidator registerValidator = new RegisterValidator();
 		registerValidator.validate(userData, result);
-		if (result.hasErrors()) {
-			
-			try {
-				if(this.userManagerService.getUser(userData.getUsername()) != null) {
-					logger.debug("El usuario ya existe");
-					result.rejectValue("user", "", "El usuario ya existe");
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		
+		try {
+			if(this.userManagerService.getUser(userData.getUsername()) != null) {
+				logger.debug("El usuario ya existe");
+				result.rejectValue("username", "", "El usuario ya existe");
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (result.hasErrors()) {
 			return "register";
 		}
 		
